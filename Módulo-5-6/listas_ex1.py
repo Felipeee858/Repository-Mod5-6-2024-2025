@@ -30,5 +30,6 @@ print(f"A marca {mmaior} é que tem mais veículos com {maior} carros")
 
 marca_remover=input("Introduza o veículo que deseja remover: ")
 
-carros.remove("marca_remover")
+for i in range(len(carros)):
+    carros.remove(marca_remover)
 print(carros)
