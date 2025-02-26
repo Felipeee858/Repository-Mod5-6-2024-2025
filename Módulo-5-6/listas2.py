@@ -1,6 +1,6 @@
 cores=[]
 
-#adicionar a cor vermelhor
+#adicionar a cor vermelha
 cores.append("vermelho")
 #adicionar uma cor introduzida pelo utilizador
 cor=input("Indique uma cor: ")

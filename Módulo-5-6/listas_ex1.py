@@ -33,3 +33,4 @@ marca_remover=input("Introduza o veículo que deseja remover: ")
 while marca_remover in carros:
     carros.remove(marca_remover)
 print(carros)
+
