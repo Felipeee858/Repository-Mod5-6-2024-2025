@@ -74,6 +74,17 @@ def Media(valores):
     
     return sum(valores)/len(valores)
 
+def ler_string(tamanho_minimo,mensagem="Introduza um texto:"):
+    """Função devolve a string com um mínimo de letras. Remove os espaços em branco
+    no inicio e no fim. Mostra uma mensagem para introdução do texto"""
+    while True:
+        texto=input(mensagem)
+        texto=texto.strip()
+        if len(texto)>=tamanho_minimo:
+            return texto
+        print(f"O texto inserido não é válido. Tem de ter no mínimo {tamanho_minimo} de letras")
+
+
 
 
 
