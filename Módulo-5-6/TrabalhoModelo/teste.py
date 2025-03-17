@@ -1,0 +1,18 @@
+exemplo_leitores=[
+    {"id":1,
+    "nome":"Joaquim",
+    "idade":15,
+    "email":"Joaquim@gmail.com",
+    "Infrações":None},
+    {"id":2,
+    "nome":"Maria",
+    "idade":38,
+    "email":"Maria@gmail.com",
+    "Infrações":None},
+    {"id":3,
+    "nome":"João",
+    "idade":56,
+    "email":"João@gmail.com",
+    "Infrações":None}
+]
+print(exemplo_leitores["id"])

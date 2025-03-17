@@ -36,7 +36,7 @@ exemplo_livros=[
         "leitor":None,
         "nr_emprestimo":0}
     ]
-
+lista_campos_privados=["id","estado","leitor","nr_emprestimos"]
 def configurar():
     """Insere dados de exemplo"""
     livros.extend(exemplo_livros)
@@ -48,16 +48,16 @@ def MenuLivros():
         op=utils.Menu(["Adicionar","Listar","Editar","Apagar","Pesquisar","Voltar"],"Menu de livros")
         if op == 6:
             break
-        if op == 1:
+        elif op == 1:
             Adicionar()
         elif op == 2:
             Listar(livros)
         elif op == 3:
-            pass
+            Editar()
         elif op == 4:
             pass
         elif op == 5:
-            Pesquisar()
+            pesquisar_listar()
 #Adicionar Livro
 def Adicionar():
     print("#### Adicionar Livro novo ####")
@@ -90,9 +90,49 @@ def Adicionar():
     print(f"Livro registrado com sucesso. Tem {len(livros)} livros")
 
 #Editar Livro
-
+def Editar():
+    #pesquisar o livro a editar
+    livros_editar=Pesquisar()
+    #mostrar os dados de cada livro encontrado
+    if len(livros_editar)==0:
+        print("Não foram encontrados livros.")
+        return
+    #mostrar todos os livros
+    Listar(livros_editar)
+    #permitir alterar os dados
+    id=utils.ler_numero_inteiro("Introduza o id do livro a editar ou 0 (zero) para cancelar: ")
+    if id == 0:
+        return
+    #livro com o id indicado
+    livro=None
+    for l in livros_editar:
+        if l["id"] == id:
+            livro=l
+            break
+    if livro == None:
+        print("O id indicado não existe")
+        return
+    #escolher o campo a editar
+    lista_campos=list(livro.keys())
+    #remover os campos privados
+    for c in lista_campos_privados:
+        lista_campos.remove(c)
+    op=utils.Menu(lista_campos,"Qual o campo a editar? ")
+    campo=lista_campos[op-1]
+    #mostrar o valor atual do campo a editar
+    print(f"o campo {lista_campos[op - 1]} tem o valor {livro[campo]}")
+    novo_valor=utils.ler_string(3,"Novo valor: ")
+    #Guarda o novo valor
+    livro[campo]=novo_valor
+    
 #Apagar Livro
+def Apagar():
+    pass
 
+
+def pesquisar_listar():
+    resultado=Pesquisar()
+    Listar(resultado)
 #Listar Livros
 def Listar(lista_a_listar):
     """Função para listar todos os livros"""
@@ -106,19 +146,19 @@ def Listar(lista_a_listar):
 def Pesquisar():
     """Devolver a lista dos livros que correspondem a um critério"""
     #Deixar o utilizar escolher o campo de pesquisa
-    op=utils.Menu(["Autor","Título"],"Escolha o campo de pesquisa:")
+    op=utils.Menu(["Autor","Título"],"Escolha o campo de pesquisa: ")
     #criar uma lista para os resultados
     l_resultados=[]
     if op==1:
         campo="autor"
     else:
         campo="titulo"
-    pesquisa=utils.ler_string(1,f"{campo} a pesquisar")
+    pesquisa=utils.ler_string(3,f"{campo} a pesquisar: ")
+    #adicionar à lista os livros que correspondem ao resultado da pesquisa
     for livro in livros:
         if pesquisa.lower() in livro[campo].lower():
-            l_resultados.append(livros)
-    Listar(l_resultados)
-    #adicionar à lista os livros que correspondem ao resultado da pesquisa
+            l_resultados.append(livro)
+    return l_resultados
 
 
 if __name__=="__main__":
