@@ -55,7 +55,7 @@ def MenuLivros():
         elif op == 3:
             Editar()
         elif op == 4:
-            pass
+            Apagar()
         elif op == 5:
             pesquisar_listar()
 #Adicionar Livro
@@ -127,7 +127,26 @@ def Editar():
     
 #Apagar Livro
 def Apagar():
-    pass
+    #verificar se a lista está vazia
+    if len(livros)==0:
+        print("Não tem livros para remover.")
+        return
+    # pesquisar os livros com título semelhante
+    print("Pesquisar o livro a remover:")
+    l_livros = Pesquisar()
+    #verificar se encontrou pelo menos 1
+    if len(l_livros)==0:
+        print("Não foi encontrado nenhum livro.")
+        return
+    # confirmar para cada um dos livros se deseja apagar
+    for livro in l_livros:
+        print(f"Título: {livro['titulo']} Autor: {livro['autor']} id: {livro['id']}")
+        op = input("Deseja remover este livro (s/n)?")
+        if op in "sS":
+            #TODO: confirmar se o livro  não está emprestado
+            livros.remove(livro)
+            break
+    print(f"Livro removido com sucesso. Tem {len(livros)} livros.")
 
 
 def pesquisar_listar():

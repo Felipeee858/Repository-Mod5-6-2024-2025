@@ -110,18 +110,25 @@ def Editar():
     #Guarda o novo valor
     leitor[campo]=novo_valor
 def Apagar():
-    #pesquisar se exite leitores
+    #verificar se existem leitores
     if len(leitores)==0:
-        print("Não Há leitores")
+        print("Não existem leitores")
         return
-    #pesquisar o leitor a apagar
-    resultado=Pesquisar()
-    #mostrar os dados de cada leitor encotrado
-    if len(resultado)==0:
-        print("Não foram encontrados leitores.")
+    print("Pesquisa do leitor a remover:")
+    l_leitores = Pesquisar()
+    #verificar se encontrou pelo menos 1
+    if len(l_leitores)==0:
+        print("Não foi encontrado nenhum leitor.")
         return
-    #mostrar todos os leitores
-    Listar(resultado)
+    for leitor in l_leitores:
+        print(f"id:{leitor['id']} Nome:{leitor['nome']} Email:{leitor['email']}")
+        op = input("Deseja remover este leitor?")
+        if op in "sS":
+            #TODO: verificar se o leitor tem livros emprestados
+            leitores.remove(leitor)
+            break
+    print(f"Leitor removido com sucesso. Tem {len(leitores)} leitores.")
+
 def pesquisar_listar():
     resultado=Pesquisar()
     Listar(resultado)
