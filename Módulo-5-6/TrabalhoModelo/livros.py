@@ -37,6 +37,13 @@ exemplo_livros=[
         "nr_emprestimo":0}
     ]
 lista_campos_privados=["id","estado","leitor","nr_emprestimos"]
+
+def GetLivros(id):
+    """Devolve o livro com base no id indicado"""
+    for livro in livros:
+        if livro["id"]==id:
+            return livro
+    return None
 def configurar():
     """Insere dados de exemplo"""
     livros.extend(exemplo_livros)

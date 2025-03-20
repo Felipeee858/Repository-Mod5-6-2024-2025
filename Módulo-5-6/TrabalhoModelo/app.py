@@ -10,6 +10,7 @@ Requisítos funcionais:
 import utils
 import livros
 import leitores
+import devoluções_emprestimos
 
 #Deve estar True quando em testes e False quando em produção
 DEBUG=True
@@ -26,6 +27,9 @@ def MenuPrincipal():
             livros.MenuLivros()
         if op==2:
             leitores.Menuleitores()
+        if op==3:
+            devoluções_emprestimos.MenuEmprestimos()
+
 
 if __name__=="__main__":
     MenuPrincipal()
