@@ -1,23 +1,25 @@
 """Módulo de gestão dos leitores"""
 import utils
+import os
 leitores=[]
 exemplo_leitores=[
     {"id":1,
     "nome":"Joaquim",
     "idade":15,
     "email":"Joaquim@gmail.com",
-    "Infrações":None},
+    "Infrações":""},
     {"id":2,
     "nome":"Maria",
     "idade":38,
     "email":"Maria@gmail.com",
-    "Infrações":None},
+    "Infrações":""},
     {"id":3,
     "nome":"João",
     "idade":56,
     "email":"João@gmail.com",
-    "Infrações":None}
+    "Infrações":""}
 ]
+
 def configurar():
     """Insere dados de exemplo"""
     leitores.extend(exemplo_leitores)
@@ -41,6 +43,12 @@ def Menuleitores():
         elif op==5:
             pesquisar_listar()
 
+def GetLeitor(id):
+    #Devolve o leitor com base no id indicado
+    for leitor in leitores:
+        if leitor["id"]==id:
+            return leitor
+        return None
 #Adicionar Leitor
 def Adicionar():
     print("#### Adicionar Livro novo ####")
@@ -59,7 +67,7 @@ def Adicionar():
         "nome":nome,
         "idade":idade,
         "email":email,
-        "Infrações":None
+        "Infrações":""
     }
     leitores.append(novo)
 

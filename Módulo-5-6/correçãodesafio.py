@@ -19,12 +19,31 @@ for aluno in Notas:
         print(disciplina,Notas[aluno][disciplina])
 
 
-for cliente in Notas:
+
+dicionario={} #dicionario do exercício
+for cliente in dicionario:
     print(cliente) # codigo
-    for visitas in Notas[cliente]:
-        print(f"{visitas} - {Notas[cliente][visitas]}")
+    for visitas in dicionario[cliente]:
+        print(f"{visitas} - {dicionario[cliente][visitas]}")
 
 codigo=int(input("codigo"))
-print(Notas[codigo]["Visitas"])
+print(dicionario[codigo]["Visitas"])
 codigo=int(input("Codigo Visitante: "))
-Notas[codigo]["Visitas"] +=1
+dicionario[codigo]["Visitas"] +=1
+
+maior=0
+cidade_maior=0
+for chave in dicionario:
+    Tcidade=dicionario[chave]["cidade"]
+    nrvisitas=dicionario[chave]["visitas"]
+    for codigo in dicionario:
+        if Tcidade==dicionario[codigo]["cidade"]:
+            nrvisitas=dicionario[codigo]["visitas"]
+        if nrvisitas>maior:
+            cidade_maior=Tcidade
+            maior=nrvisitas
+
+            
+
+
+

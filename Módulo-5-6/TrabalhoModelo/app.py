@@ -10,7 +10,9 @@ Requisítos funcionais:
 import utils
 import livros
 import leitores
+import estatisticas
 import devoluções_emprestimos
+import os
 
 #Deve estar True quando em testes e False quando em produção
 DEBUG=True
@@ -20,6 +22,7 @@ def MenuPrincipal():
         leitores.configurar()
     op=0
     while op!=5:
+        os.system("cls")
         op=utils.Menu(["Livros","Leitores","Empréstimos/devoluções","Estatísticas","Sair"],"Menu principal")
         if op==5:
             break
@@ -29,6 +32,8 @@ def MenuPrincipal():
             leitores.Menuleitores()
         if op==3:
             devoluções_emprestimos.MenuEmprestimos()
+        if op==4:
+            estatisticas.MenuEstatisticas()
 
 
 if __name__=="__main__":

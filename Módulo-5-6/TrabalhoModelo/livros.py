@@ -1,5 +1,6 @@
 """Módulo de gestão dos livros"""
 import utils
+import os
 #lista de livros
 livros=[]
 
@@ -50,6 +51,7 @@ def configurar():
 #Menu Livros
 def MenuLivros():
     """Submenu para gerir os livros"""
+    
     op=0
     while op !=6:
         op=utils.Menu(["Adicionar","Listar","Editar","Apagar","Pesquisar","Voltar"],"Menu de livros")
