@@ -23,27 +23,84 @@ def MenuEstatisticas():
 
 
 def LivroMais():
-    pass
-
-def LeitorMais():
-    """Função para mostrar o leitor com mais empréstimos"""
-    if len(devoluções_emprestimos.emprestimos)== 0:
+    """Função para encontrar o livro mais requisitado no último mês (mês anterior ao mês atual)"""
+    if len(devoluções_emprestimos.emprestimos) == 0:
         print("Não tem empréstimos")
         return
-    lista_leitores=[]
+    #mês e ano a pesquisar
+    data_atual = datetime.now()
+    data_atual.strftime("%Y-%m-%d")
+    partes = data_atual.split("-")
+    ano = int(partes[0])
+    mes = int(partes[1])
+    mes = mes - 1
+    if mes == 0:
+        mes = 12
+        ano = ano - 1
+   
+    #criar um dicionário { titulo: contagem}
+    dicionario_livros={}
+    #percorrer empréstimos
     for emprestimo in devoluções_emprestimos.emprestimos:
-        nome=emprestimo["leitor"]["nome"]
-        if nome in lista_leitores:
-            lista_leitores[nome] +=1
-        else:
-            lista_leitores[nome]=1
-    nome_maior=lista_leitores[0].keys()[0]
-    maior=0
-    for leitor in lista_leitores:
-        if leitor.values()[0] > maior:
-            maior =leitor.values()[0]
-            nome_maior= leitor.keys()[0]
-    print(f"o leitor com mais empréstimos é {nome_maior}")
+        #verificar se é do mês anterior (comparar mês e ano)
+        data_emprestimo = emprestimo['data_emprestimo'].split("-")
+        ano_emprestimo = int(data_emprestimo[0])
+        mes_emprestimo = int(data_emprestimo[1])
+        if ano_emprestimo == ano and mes_emprestimo == mes:
+            #contar se sim
+            if emprestimo['livro']['titulo'] in dicionario_livros:
+                dicionario_livros[emprestimo['livro']['titulo']] += 1
+            else:
+                dicionario_livros[emprestimo['livro']['titulo']] = 1
+    #percorrer o dicionário e encontrar o maior
+    maior = 0
+    titulo_maior =""
+    for livro in dicionario_livros:
+        if dicionario_livros[livro]>maior:
+            titulo_maior = livro
+            maior = dicionario_livros[livro]
+    print(f"O livro mais emprestado no mês anterior ({mes}/{ano}) foi {titulo_maior} com {maior} empréstimos.")
+ 
+
+def LivroMais():
+    """Função para encontrar o livro mais requisitado no último mês (mês anterior ao mês atual)"""
+    if len(devoluções_emprestimos.emprestimos) == 0:
+        print("Não tem empréstimos")
+        return
+    #mês e ano a pesquisar
+    data_atual = datetime.now()
+    data_atual = data_atual.strftime("%Y-%m-%d")
+    partes = data_atual.split("-")
+    ano = int(partes[0])
+    mes = int(partes[1])
+    mes = mes - 1
+    if mes == 0:
+        mes = 12
+        ano = ano - 1
+   
+    #criar um dicionário { titulo: contagem}
+    dicionario_livros={}
+    #percorrer empréstimos
+    for emprestimo in devoluções_emprestimos.emprestimos:
+        #verificar se é do mês anterior (comparar mês e ano)
+        data_emprestimo = emprestimo['data_emprestimo'].split("-")
+        ano_emprestimo = int(data_emprestimo[0])
+        mes_emprestimo = int(data_emprestimo[1])
+        if ano_emprestimo == ano and mes_emprestimo == mes:
+            #contar se sim
+            if emprestimo['livro']['titulo'] in dicionario_livros:
+                dicionario_livros[emprestimo['livro']['titulo']] += 1
+            else:
+                dicionario_livros[emprestimo['livro']['titulo']] = 1
+    #percorrer o dicionário e encontrar o maior
+    maior = 0
+    titulo_maior =""
+    for livro in dicionario_livros:
+        if dicionario_livros[livro]>maior:
+            titulo_maior = livro
+            maior = dicionario_livros[livro]
+    print(f"O livro mais emprestado no mês anterior ({mes}/{ano}) foi {titulo_maior} com {maior} empréstimos.")
+ 
 
 
 def EmprestimosForaPrazo():
@@ -92,3 +149,6 @@ def MesMais():
                 posicao_maior=i
     #Mostrar a posição do maior +1
     print(f"O mês que tem mais empréstimos é {posicao_maior+1} com {meses[posicao_maior]} empréstimos")
+
+
+
